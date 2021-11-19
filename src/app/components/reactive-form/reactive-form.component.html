@@ -1,0 +1,113 @@
+<!-- (ngSubmit)="onSubmit()" -->
+<form [formGroup]="form">
+  <div formGroupName="personalInfo">
+    <div>
+      <label for="firstname">First Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="firstname"
+        placeholder="John"
+        formControlName="firstName"
+      />
+    </div>
+    <div>
+      <label for="lastname">Last Name</label>
+      <input
+        type="text"
+        name="lastname"
+        id="lastname"
+        class="form-control"
+        placeholder="Smith"
+        formControlName="lastName"
+      />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input
+      type="email"
+      class="form-control"
+      id="exampleInputEmail1"
+      aria-describedby="emailHelp"
+      placeholder="Enter email"
+      formControlName="email"
+    />
+    <div
+      *ngIf="Email?.invalid && Email?.touched"
+      class="alert alert-danger"
+      role="alert"
+    >
+      <ul>
+        <li *ngIf="Email?.errors?.required">Email is required</li>
+        <li *ngIf="Email?.errors?.ShouldBeUnique">Email should be unique</li>
+      </ul>
+    </div>
+    <div
+      *ngIf="form?.pending && form?.touched"
+      class="alert alert-warning"
+      role="alert"
+    >
+      Validating the Email address...
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      id="exampleInputPassword1"
+      placeholder="Password"
+      formControlName="password"
+    />
+    <div
+      *ngIf="Password?.invalid && Password?.touched"
+      class="alert alert-danger"
+      role="alert"
+    >
+      <ul>
+        <li *ngIf="Password?.errors?.required">Password is required</li>
+        <li *ngIf="Password?.errors?.NoSpaceInValue">
+          Remove Space(s) in password
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="skills">
+    <div class="form-group">
+      <label for="exampleInputPassword1">Skills</label>
+      <input
+        type="text"
+        class="form-control"
+        id="skills"
+        placeholder="Skills"
+        #e
+        (keyup.enter)="onSkillEnter(e)"
+      />
+    </div>
+    <ul *ngIf="skills" class="list-group list-group-flush">
+      <li
+        *ngFor="let skill of skills"
+        class="list-group-item"
+        (click)="onSkillClick(skill)"
+      >
+        {{ skill.value }}
+      </li>
+    </ul>
+  </div>
+  <div class="form-check">
+    <input
+      type="checkbox"
+      class="form-check-input"
+      id="exampleCheck1"
+      formControlName="subscribe"
+    />
+    <label class="form-check-label" for="exampleCheck1">
+      Subscribe to newsletter
+    </label>
+  </div>
+  <button type="submit" class="btn btn-primary" (click)="onSubmit()">
+    Submit
+  </button>
+</form>
